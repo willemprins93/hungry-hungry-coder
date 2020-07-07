@@ -3,15 +3,23 @@ body {
     text-align: center;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    align-items: center;
+    background-color: #a6a6a6;
+}
+
+#start-button {
+    width: 200px;
+    padding: 10px;
+    margin: 0 0 20px 0;
 }
 
 h1 {
     font-size: 50px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
+    color: white;
 }
 
 #canvas {
-    border: 2px dotted black;
+    border: 2px solid black;
 }

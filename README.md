@@ -89,7 +89,7 @@ Deliverables:
 ### Git
 
 URls for the project repo and deploy
-[Link Repo](http://github.com)
+[https://github.com/willemprins93/hungry-hungry-coder](http://github.com)
 [Link Deploy](http://github.com)
 
 ### Slides
