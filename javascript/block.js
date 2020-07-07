@@ -3,8 +3,8 @@ class Block extends Component {
         super(game);
         this.x = Math.floor(Math.random() * 550);
         this.y = Math.floor(Math.random() * 550);
-        this.width = Math.floor(Math.random() * 100);
-        this.height = Math.floor(Math.random() * 100);
+        this.width = (Math.floor(Math.random() * 60)) + 10 ;
+        this.height = (Math.floor(Math.random() * 60)) + 10;
     }
 
     drawBlock() {

@@ -59,7 +59,7 @@ Deliverables:
 
 ## Task
 
-- Main - createSplash
+- Main - splashScreen
 - Main - addEventListener
 - Main - createGame
 - Main - removeGame

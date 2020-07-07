@@ -5,13 +5,13 @@ class Game {
         this.player = new Player(this, 300, 300, 32, 32);
         this.blocks = [];
         this.food = [];
-        this.background = undefined;
         this.backgroundImg = new Image();
         this.score = 0;
         this.x = undefined;
         this.y = undefined;
         this.width = 600;
         this.height = 600;
+        this.sound = new Audio("../sounds/bite.mp3")
     }
 
     init() {
@@ -31,7 +31,7 @@ class Game {
         this.drawFoods();
         this.drawPlayer();
         const loop = () => {
-            animation = requestAnimationFrame(loop);
+            animation = window.requestAnimationFrame(loop);
             this.clear()
             this.drawBackground();
             this.drawBlocks();
@@ -39,14 +39,26 @@ class Game {
             this.drawPlayer();
             this.player.move();
             this.foodCollision();
-            // this.blockCollision();
-            this.checkWin();
+            this.blockCollision();
+            if(this.checkWin()){
+                this.winGame();
+                cancelAnimationFrame(animation);
+            }
         }
-        requestAnimationFrame(loop);
+        window.requestAnimationFrame(loop);
     }
 
+    winGame() {
+        this.clear();
+        this.ctx.font = "30px Helvetica";
+        this.ctx.fillText('HURRAY, YOU LIVE!', 200, 200);
+        document.getElementById("play-again").classList.toggle("toggle");
+    }
+
+
+
     createBlocks() {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
             this.blocks.push(new Block(this));
         }
     }
@@ -58,11 +70,12 @@ class Game {
     }
 
     drawBackground() {
-        this.backgroundImg.src = "../images/fruit.png"
+        this.backgroundImg.src = "../images/background.jpg";
+        this.ctx.drawImage(this.backgroundImg, 0, 0, 600, 600);
     }
 
     drawPlayer() {
-        this.player.drawComponent("../images/character.png")
+        this.player.drawComponent("../images/character.png");
     }
 
     drawBlocks() {
@@ -73,7 +86,13 @@ class Game {
 
     drawFoods() {
         for (let i = 0; i < this.food.length; i++){
-            this.food[i].drawComponent("../images/fruit.png")
+            // for(let j = 0; j < this.blocks.length; j++){
+            //     if (this.food[i].checkCollision(this.blocks[j])){
+            //         this.food.splice(this.food.indexOf(this.food[i]), 1);
+            //         this.food.push(new Food());
+            //     }
+            // }
+            this.food[i].drawComponent("../images/fruit.png");
         }
     }
 
@@ -82,24 +101,32 @@ class Game {
             if (this.player.checkCollision(this.food[i])) {
                 this.food.splice(i, 1);
                 this.score += 1
+                this.sound.play();
             }
         }
     }
 
-    // blockCollision() {
-    //     for (let i = 0; i < this.blocks.length; i++) {
-    //         if (this.player.checkCollision(this.blocks[i])) {
-    //             this.player.speed = 0;
-    //         } 
-    //     }
-    // }
+    blockCollision() {
+        for (let i = 0; i < this.blocks.length; i++) {
+            if (this.player.checkCollision(this.blocks[i])) {
+                if (this.player.direction === 'L'){
+                    this.player.x += 10;
+                } else if (this.player.direction === 'U'){
+                    this.player.y += 10;
+                } else if (this.player.direction === 'R'){
+                    this.player.x -= 10;
+                } else if (this.player.direction === 'D'){
+                    this.player.y -= 10;
+                }
+            } 
+        }
+    }
 
     checkWin() {
         if (this.food.length === 0) {
             return true;
         }
     }
-    
 
     clear() {
         this.ctx.clearRect(this.x, this.y, this.width, this.height);
