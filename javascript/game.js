@@ -2,16 +2,18 @@ class Game {
     constructor() {
         this.canvas = undefined;
         this.ctx = undefined; 
-        this.player = new Player(this, 300, 300, 32, 32);
+        this.player = new Player(this, 300, 300, 25, 32);
         this.blocks = [];
         this.food = [];
         this.backgroundImg = new Image();
+        this.gameOverImg = new Image();
         this.score = 0;
         this.x = undefined;
         this.y = undefined;
         this.width = 600;
         this.height = 600;
         this.sound = new Audio("../sounds/bite.mp3")
+        this.time = 1000;
     }
 
     init() {
@@ -30,19 +32,28 @@ class Game {
         this.drawBlocks();
         this.drawFoods();
         this.drawPlayer();
+        this.drawScore();
         const loop = () => {
             animation = window.requestAnimationFrame(loop);
             this.clear()
             this.drawBackground();
+            // this.drawGameOver();
             this.drawBlocks();
             this.drawFoods();
             this.drawPlayer();
             this.player.move();
             this.foodCollision();
             this.blockCollision();
+            this.drawScore();
+            this.drawTime();
+            this.time -= 1.66; 
             if(this.checkWin()){
-                this.winGame();
                 cancelAnimationFrame(animation);
+                this.winGame();
+            }
+            if(this.checkLose()) {
+                cancelAnimationFrame(animation);
+                this.loseGame();
             }
         }
         window.requestAnimationFrame(loop);
@@ -50,12 +61,36 @@ class Game {
 
     winGame() {
         this.clear();
-        this.ctx.font = "30px Helvetica";
-        this.ctx.fillText('HURRAY, YOU LIVE!', 200, 200);
+
+        this.ctx.fillStyle = '#1d6b3b';
+        this.ctx.font = "bold italic 50px Helvetica";
+        this.ctx.fillText('HURRAY, YOU LIVE!', 53, 185);
+
+        this.ctx.fillStyle = "#BC4B51";
+        this.ctx.font = "20px Helvetica";
+        this.ctx.fillText(`Don't forget to `, 235, 295);
+
+        this.ctx.fillText('take a break next time!', 195, 325);
+
         document.getElementById("play-again").classList.toggle("toggle");
     }
 
+    loseGame() {
+        this.clear();
 
+        // this.drawGameOver();
+
+        this.ctx.font = "bold italic 60px Helvetica";
+        this.ctx.fillStyle = "#1d6b3b";
+        this.ctx.fillText('GAME OVER', 115, 150);
+
+        this.ctx.font = "18px Helvetica";
+        this.ctx.fillStyle = "#BC4B51";
+        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 155, 380);
+        this.ctx.fillText(`before passing out...`, 220, 400);
+
+        document.getElementById("try-again").classList.toggle("toggle");
+    }
 
     createBlocks() {
         for (let i = 0; i < 15; i++) {
@@ -63,19 +98,36 @@ class Game {
         }
     }
 
-    createFoods() {
-        for (let i = 0; i < 5; i++) {
-            this.food.push(new Food(this));
+    createFoods() { // not working yet
+        let newFood;
+        while(this.food.length < 5) {
+            newFood = new Food(this);
+            for (let i = 0; i < this.blocks.length; i++) {
+                if (newFood.checkOverlap(this.blocks[i]) === true) {
+                    newFood = new Food(this);
+                    break;
+                }    
+            }
+            this.food.push(newFood);
         }
     }
+    
 
     drawBackground() {
-        this.backgroundImg.src = "../images/background.jpg";
+        this.backgroundImg.src = "../images/background.png";
         this.ctx.drawImage(this.backgroundImg, 0, 0, 600, 600);
     }
 
     drawPlayer() {
-        this.player.drawComponent("../images/character.png");
+        if(this.player.direction === 'R'){
+            this.player.drawComponent('../images/character_sideright.png');
+        } else if (this.player.direction === 'L'){
+            this.player.drawComponent('../images/character_sideleft.png');
+        } else if (this.player.direction === 'U'){
+            this.player.drawComponent('../images/character_back.png');
+        } else if (this.player.direction === 'D'){
+            this.player.drawComponent('../images/character_front.png');
+        }
     }
 
     drawBlocks() {
@@ -86,13 +138,28 @@ class Game {
 
     drawFoods() {
         for (let i = 0; i < this.food.length; i++){
-            // for(let j = 0; j < this.blocks.length; j++){
-            //     if (this.food[i].checkCollision(this.blocks[j])){
-            //         this.food.splice(this.food.indexOf(this.food[i]), 1);
-            //         this.food.push(new Food());
-            //     }
-            // }
-            this.food[i].drawComponent("../images/fruit.png");
+            this.food[i].drawComponent("../images/fruit1.png");
+        }
+    }
+
+    drawScore() {
+        this.ctx.font = "20px Helvetica";
+        this.ctx.fillStyle = "#BC4B51";
+        this.ctx.fillText(`snacks found: ${this.score}`, 10, 25)
+    }
+
+    drawTime() {
+        this.ctx.font = "20px Helvetica";
+        this.ctx.fillStyle = "#BC4B51";
+        this.ctx.fillText(`passing out in: ${this.time.toFixed(0)}`, 425, 25);
+    }
+
+    drawGameOver() {
+        let x = this.gameOverImg;
+        x.src = "../images/character_gameover.png";
+
+        x.onload = function(){
+            this.ctx.drawImage(x, 200, 175, 192, 174);
         }
     }
 
@@ -124,6 +191,12 @@ class Game {
 
     checkWin() {
         if (this.food.length === 0) {
+            return true;
+        }
+    }
+
+    checkLose() {
+        if (this.time <= 0) {
             return true;
         }
     }

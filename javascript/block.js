@@ -9,6 +9,7 @@ class Block extends Component {
 
     drawBlock() {
         const gameCtx = this.game.ctx;
+        gameCtx.fillStyle = "#1d6b3b";
         gameCtx.fillRect(this.x, this.y, this.width, this.height);
     }
 

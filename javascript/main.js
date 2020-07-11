@@ -3,6 +3,7 @@ window.onload = function() {
     const ctx = canvas.getContext('2d');
     const startButton = document.getElementById("start-button");
     const playAgain = document.getElementById("play-again");
+    const tryAgain = document.getElementById("try-again");
 
     splashScreen();
 
@@ -17,12 +18,13 @@ window.onload = function() {
     };
 
     function splashScreen() {
-        ctx.font = '42px Helvetica';
-        ctx.fillStyle = 'white';
+        ctx.font = 'bold italic 42px Helvetica';
+        ctx.fillStyle = '#1d6b3b';
         ctx.fillText("HUNGRY HUNGRY CODER", 28, 65);
 
-        ctx.font = '24px Helvetica';
-        ctx.fillText('Oh no!', 265, 190);
+        ctx.fillStyle = '#BC4B51';
+        ctx.font = 'italic bold 28px Helvetica';
+        ctx.fillText('Oh no!', 250, 180);
 
         ctx.font = '18px Helvetica';
         ctx.fillText('You have been coding for too long', 160, 230);
@@ -31,13 +33,19 @@ window.onload = function() {
         ctx.fillText('Go find some food quickly before', 160, 300);
         ctx.fillText(`you pass out!`, 250, 325);
 
-        ctx.font = '20px Helvetica';
-        ctx.fillText(`Use the arrow keys to move around`, 150, 410)
-        ctx.fillText(`and pick up some snacks.`, 185, 435)
+        ctx.fillStyle = '#1d6b3b';
+        ctx.font = '22px Helvetica';
+        ctx.fillText(`Use the ← ↑ ↓ → keys or W A S D`, 135, 410)
+        ctx.fillText(`to move around and pick up some snacks.`, 105, 435)
     }
 
     playAgain.onclick = function() {
         createGame();
         playAgain.classList.toggle('toggle');
+    }
+
+    tryAgain.onclick = function() {
+        createGame();
+        tryAgain.classList.toggle('toggle');
     }
 };

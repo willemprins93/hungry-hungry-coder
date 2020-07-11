@@ -1,9 +1,9 @@
 class Player extends Component {
     constructor(game, x, y, w, h) {
         super(game, x, y, w, h);
-        this.direction = undefined;
+        this.direction = 'D';
         // possibleDirections = ['L', 'U', 'R', 'D'];
-        this.possibleKeyStrokes = [37, 38, 39, 40];
+        this.possibleKeyStrokes = [37, 38, 39, 40, 65, 87, 68, 83];
     }
 
     move() {
@@ -15,7 +15,15 @@ class Player extends Component {
                         this.direction = 'L';
                         if (this.x >= 10) this.x -= 10;
                         break;
+                    case 65:
+                        this.direction = 'L';
+                        if (this.x >= 10) this.x -= 10;
+                        break;
                     case 38:
+                        this.direction = 'U';
+                        if (this.y >= 10) this.y -= 10;
+                        break;
+                    case 87:
                         this.direction = 'U';
                         if (this.y >= 10) this.y -= 10;
                         break;
@@ -23,7 +31,15 @@ class Player extends Component {
                         this.direction = 'R';
                         if (this.x <= 590 - this.width) this.x += 10;
                         break;
+                    case 68: 
+                        this.direction = 'R';
+                        if (this.x <= 590 - this.width) this.x += 10;
+                        break;
                     case 40: 
+                        this.direction = 'D';
+                        if (this.y <= 590 - this.height) this.y += 10;
+                        break;
+                    case 83: 
                         this.direction = 'D';
                         if (this.y <= 590 - this.height) this.y += 10;
                         break;
