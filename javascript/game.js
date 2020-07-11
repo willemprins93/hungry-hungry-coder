@@ -138,13 +138,13 @@ class Game {
 
     drawPlayer() {
         if(this.player.direction === 'R'){
-            this.player.drawComponent('../images/character_sideright.png');
+            this.player.drawComponent('./images/character_sideright.png');
         } else if (this.player.direction === 'L'){
-            this.player.drawComponent('../images/character_sideleft.png');
+            this.player.drawComponent('./images/character_sideleft.png');
         } else if (this.player.direction === 'U'){
-            this.player.drawComponent('../images/character_back.png');
+            this.player.drawComponent('./images/character_back.png');
         } else if (this.player.direction === 'D'){
-            this.player.drawComponent('../images/character_front.png');
+            this.player.drawComponent('./images/character_front.png');
         }
     }
 
@@ -156,7 +156,7 @@ class Game {
 
     drawFoods() {
         for (let i = 0; i < this.food.length; i++){
-            this.food[i].drawComponent("../images/fruit1.png");
+            this.food[i].drawComponent("./images/fruit1.png");
         }
     }
 
