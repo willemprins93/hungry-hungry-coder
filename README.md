@@ -88,11 +88,9 @@ Deliverables:
 
 ### Git
 
-URls for the project repo and deploy
 [https://github.com/willemprins93/hungry-hungry-coder](http://github.com)
-[Link Deploy](http://github.com)
+[https://willemprins93.github.io/hungry-hungry-coder/](http://github.com)
 
 ### Slides
 
-URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
+[https://docs.google.com/presentation/d/1xxxRjWQolXl_cSycCFTq3tMhnz9Agf5c3LczTCSJcGA/edit?usp=sharing](http://slides.com)
