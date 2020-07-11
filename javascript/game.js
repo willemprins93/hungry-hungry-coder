@@ -6,13 +6,12 @@ class Game {
         this.blocks = [];
         this.food = [];
         this.backgroundImg = new Image();
-        this.gameOverImg = new Image();
         this.score = 0;
         this.x = undefined;
         this.y = undefined;
         this.width = 600;
         this.height = 600;
-        this.sound = new Audio("../sounds/bite.mp3")
+        this.sound = new Audio("sounds/bite.mp3")
         this.music = document.getElementById('music');
         this.victory = document.getElementById('win-music');
         this.gameover = document.getElementById('gameover-music');
@@ -95,7 +94,6 @@ class Game {
     loseGame() {
         this.clear();
 
-        // this.drawGameOver();
         document.getElementById("gameover").classList.toggle("toggle");
 
         this.ctx.font = "bold italic 60px Helvetica";
@@ -132,7 +130,7 @@ class Game {
     
 
     drawBackground() {
-        this.backgroundImg.src = "../images/background.png";
+        this.backgroundImg.src = "images/background.png";
         this.ctx.drawImage(this.backgroundImg, 0, 0, 600, 600);
     }
 
