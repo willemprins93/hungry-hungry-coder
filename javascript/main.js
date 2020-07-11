@@ -4,8 +4,14 @@ window.onload = function() {
     const startButton = document.getElementById("start-button");
     const playAgain = document.getElementById("play-again");
     const tryAgain = document.getElementById("try-again");
+    const music = document.getElementById('music');
+    const victory = document.getElementById('win-music');
+    const gameover = document.getElementById('gameover-music');
 
     splashScreen();
+
+    music.volume="0.4";
+    music.play();
 
     startButton.onclick = function() {
         createGame();
@@ -42,10 +48,17 @@ window.onload = function() {
     playAgain.onclick = function() {
         createGame();
         playAgain.classList.toggle('toggle');
+        document.getElementById("win").classList.toggle("toggle");
+        victory.pause();
+        victory.currentTime = 0;
     }
 
     tryAgain.onclick = function() {
         createGame();
         tryAgain.classList.toggle('toggle');
+        document.getElementById("gameover").classList.toggle("toggle");
+        gameover.pause();
+        gameover.currentTime = 0;
+
     }
 };

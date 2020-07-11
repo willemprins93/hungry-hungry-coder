@@ -3,7 +3,19 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: #e8e2b3;
+}
+
+#gameover {
+    position: absolute;
+    max-width: 220px;
+    top: 180px;
+}
+
+#win {
+    position: absolute;
+    max-width: 200px;
+    top: 168px;
 }
 
 #start-button {
@@ -19,7 +31,7 @@ body {
     width: 200px;
     padding: 10px;
     position: absolute;
-    top: 450px;
+    top: 500px;
     color: #1d6b3b;
     border-color: #1d6b3b
 }
@@ -29,7 +41,7 @@ body {
     width: 200px;
     padding: 10px;
     position: absolute;
-    top: 450px;
+    top: 490px;
     color: #1d6b3b;
     border-color: #1d6b3b;
 }
@@ -40,7 +52,7 @@ body {
 }
 
 #canvas {
-    border: 5px solid white;
+    border: 10px ridge #1d6b3b;
     background-color: #e8e2b3;
 }
 

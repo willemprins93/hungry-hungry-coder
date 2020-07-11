@@ -13,6 +13,9 @@ class Game {
         this.width = 600;
         this.height = 600;
         this.sound = new Audio("../sounds/bite.mp3")
+        this.music = document.getElementById('music');
+        this.victory = document.getElementById('win-music');
+        this.gameover = document.getElementById('gameover-music');
         this.time = 1000;
     }
 
@@ -33,6 +36,7 @@ class Game {
         this.drawFoods();
         this.drawPlayer();
         this.drawScore();
+        this.music.play()
         const loop = () => {
             animation = window.requestAnimationFrame(loop);
             this.clear()
@@ -50,10 +54,21 @@ class Game {
             if(this.checkWin()){
                 cancelAnimationFrame(animation);
                 this.winGame();
+                this.music.pause()
+                this.music.currentTime = 0;
+
+                setTimeout(() => {
+                    this.victory.volume = 0.5;
+                    this.victory.play();
+                }, 500);
             }
             if(this.checkLose()) {
                 cancelAnimationFrame(animation);
                 this.loseGame();
+                this.music.pause()
+                this.music.currentTime = 0;
+                this.gameover.volume = 0.5;
+                this.gameover.play();
             }
         }
         window.requestAnimationFrame(loop);
@@ -62,15 +77,17 @@ class Game {
     winGame() {
         this.clear();
 
+        document.getElementById("win").classList.toggle("toggle");
+
         this.ctx.fillStyle = '#1d6b3b';
         this.ctx.font = "bold italic 50px Helvetica";
-        this.ctx.fillText('HURRAY, YOU LIVE!', 53, 185);
+        this.ctx.fillText('HURRAY, YOU LIVE!', 53, 105);
 
         this.ctx.fillStyle = "#BC4B51";
         this.ctx.font = "20px Helvetica";
-        this.ctx.fillText(`Don't forget to `, 235, 295);
+        this.ctx.fillText(`Don't forget to `, 235, 415);
 
-        this.ctx.fillText('take a break next time!', 195, 325);
+        this.ctx.fillText('take a break next time!', 195, 440);
 
         document.getElementById("play-again").classList.toggle("toggle");
     }
@@ -79,15 +96,16 @@ class Game {
         this.clear();
 
         // this.drawGameOver();
+        document.getElementById("gameover").classList.toggle("toggle");
 
         this.ctx.font = "bold italic 60px Helvetica";
         this.ctx.fillStyle = "#1d6b3b";
-        this.ctx.fillText('GAME OVER', 115, 150);
+        this.ctx.fillText('GAME OVER', 115, 130);
 
         this.ctx.font = "18px Helvetica";
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 155, 380);
-        this.ctx.fillText(`before passing out...`, 220, 400);
+        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 155, 420);
+        this.ctx.fillText(`before passing out...`, 220, 440);
 
         document.getElementById("try-again").classList.toggle("toggle");
     }
@@ -154,20 +172,22 @@ class Game {
         this.ctx.fillText(`passing out in: ${this.time.toFixed(0)}`, 425, 25);
     }
 
-    drawGameOver() {
-        let x = this.gameOverImg;
-        x.src = "../images/character_gameover.png";
+    // didn't work... fixed it using DOM-manipulation instead
+    // drawGameOver() {
+    //     let x = this.gameOverImg;
+    //     x.src = "../images/character_gameover.png";
 
-        x.onload = function(){
-            this.ctx.drawImage(x, 200, 175, 192, 174);
-        }
-    }
+    //     x.onload = function(){
+    //         this.ctx.drawImage(x, 200, 175, 192, 174);
+    //     }
+    // }
 
     foodCollision() {
         for (let i = 0; i < this.food.length; i++){
             if (this.player.checkCollision(this.food[i])) {
                 this.food.splice(i, 1);
                 this.score += 1
+                this.sound.volume='0.5';
                 this.sound.play();
             }
         }
