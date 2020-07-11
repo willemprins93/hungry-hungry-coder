@@ -84,13 +84,13 @@ Deliverables:
 
 ### Trello
 
-[https://trello.com/b/WDH8ph2e/hungry-hungry-coder](https://trello.com)
+[Trello](https://trello.com/b/WDH8ph2e/hungry-hungry-coder)
 
 ### Git
 
-[https://github.com/willemprins93/hungry-hungry-coder](http://github.com)
-[https://willemprins93.github.io/hungry-hungry-coder/](http://github.com)
+[GitHub Repo](https://github.com/willemprins93/hungry-hungry-coder)
+[Deploy link](https://willemprins93.github.io/hungry-hungry-coder/)
 
 ### Slides
 
-[https://docs.google.com/presentation/d/1xxxRjWQolXl_cSycCFTq3tMhnz9Agf5c3LczTCSJcGA/edit?usp=sharing](http://slides.com)
+[Presentation slides](https://docs.google.com/presentation/d/1xxxRjWQolXl_cSycCFTq3tMhnz9Agf5c3LczTCSJcGA/edit?usp=sharing)
