@@ -35,12 +35,12 @@ class Game {
         this.drawFoods();
         this.drawPlayer();
         this.drawScore();
+        this.music.volume = 0.4;
         this.music.play()
         const loop = () => {
             animation = window.requestAnimationFrame(loop);
             this.clear()
             this.drawBackground();
-            // this.drawGameOver();
             this.drawBlocks();
             this.drawFoods();
             this.drawPlayer();
@@ -89,6 +89,8 @@ class Game {
         this.ctx.fillText('take a break next time!', 195, 440);
 
         document.getElementById("play-again").classList.toggle("toggle");
+
+        document.getElementById("main-menu").classList.toggle("toggle");
     }
 
     loseGame() {
@@ -102,10 +104,12 @@ class Game {
 
         this.ctx.font = "18px Helvetica";
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 155, 420);
-        this.ctx.fillText(`before passing out...`, 220, 440);
+        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 155, 410);
+        this.ctx.fillText(`before passing out...`, 220, 430);
 
         document.getElementById("try-again").classList.toggle("toggle");
+
+        document.getElementById("main-menu").classList.toggle("toggle");
     }
 
     createBlocks() {
@@ -170,7 +174,7 @@ class Game {
         this.ctx.fillText(`passing out in: ${this.time.toFixed(0)}`, 425, 25);
     }
 
-    // didn't work... fixed it using DOM-manipulation instead
+    // // didn't work... fixed it using DOM-manipulation instead
     // drawGameOver() {
     //     let x = this.gameOverImg;
     //     x.src = "../images/character_gameover.png";
@@ -185,6 +189,8 @@ class Game {
             if (this.player.checkCollision(this.food[i])) {
                 this.food.splice(i, 1);
                 this.score += 1
+                this.sound.pause();
+                this.sound.currentTime = 0;
                 this.sound.volume='0.5';
                 this.sound.play();
             }

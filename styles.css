@@ -31,7 +31,7 @@ body {
     width: 200px;
     padding: 10px;
     position: absolute;
-    top: 500px;
+    top: 480px;
     color: #1d6b3b;
     border-color: #1d6b3b
 }
@@ -41,10 +41,20 @@ body {
     width: 200px;
     padding: 10px;
     position: absolute;
-    top: 490px;
+    top: 480px;
     color: #1d6b3b;
     border-color: #1d6b3b;
 }
+
+#main-menu {
+    width: 200px;
+    padding: 10px;
+    position: absolute;
+    top: 540px;
+    color: #1d6b3b;
+    border-color: #1d6b3b;
+}
+
 
 
 .toggle {
