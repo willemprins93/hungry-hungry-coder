@@ -124,7 +124,6 @@ class Game {
             newFood = new Food(this);
             for (let i = 0; i < this.blocks.length; i++) {
                 if (newFood.checkOverlap(this.blocks[i]) === true) {
-                    newFood = new Food(this);
                     break;
                 }    
             }
@@ -222,6 +221,17 @@ class Game {
     checkLose() {
         if (this.time <= 0) {
             return true;
+        }
+    }
+
+    discoColour(){
+        let number = Math.floor(Math.random() * 3);
+        if(number === 0){
+            return '#1d6b3b';
+        } else if(number === 1){
+            return '#3f2c70';
+        } else if(number === 2){
+            return '#781439';
         }
     }
 
