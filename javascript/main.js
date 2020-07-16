@@ -9,11 +9,16 @@ window.onload = function() {
     const victory = document.getElementById('win-music');
     const gameover = document.getElementById('gameover-music');
 
+    let titleOne = null;
+    let titleTwo = null;
+
     splashScreen();
 
     startButton.onclick = function() {
         createGame();
         startButton.classList.toggle('toggle');
+        clearInterval(titleOne);
+        clearInterval(titleTwo);
     };
 
     function createGame() {
@@ -24,7 +29,26 @@ window.onload = function() {
     function splashScreen() {
         ctx.font = 'bold italic 42px Helvetica';
         ctx.fillStyle = '#1d6b3b';
-        ctx.fillText("HUNGRY HUNGRY CODER", 28, 65);
+        ctx.fillText("HUNGRY HUNGRY CODER", 32, 69);
+
+        titleOne = setInterval(() => {
+            ctx.font = 'bold italic 42px Helvetica';
+            ctx.fillStyle = '#BC4B51';
+            ctx.fillText("HUNGRY HUNGRY CODER", 32, 69);
+
+            ctx.font = 'bold italic 42px Helvetica';
+            ctx.fillStyle = 'white';
+            ctx.fillText("HUNGRY HUNGRY CODER", 28, 65);
+        }, 500)
+
+        titleTwo = setInterval(() => {
+            ctx.clearRect(0, 0, 600, 70)
+
+            ctx.font = 'bold italic 42px Helvetica';
+            ctx.fillStyle = '#1d6b3b';
+            ctx.fillText("HUNGRY HUNGRY CODER", 32, 69);
+        }, 1000)
+
 
         ctx.fillStyle = '#BC4B51';
         ctx.font = 'italic bold 28px Helvetica';
@@ -65,4 +89,5 @@ window.onload = function() {
     mainMenu.onclick = function() {
         location.reload();
     }
+
 };

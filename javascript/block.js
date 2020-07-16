@@ -2,7 +2,7 @@ class Block extends Component {
     constructor(game) {
         super(game);
         this.x = Math.floor(Math.random() * 550);
-        this.y = Math.floor(Math.random() * 550);
+        this.y = Math.floor(Math.random() * 550) + 30;
         this.width = (Math.floor(Math.random() * 60)) + 10 ;
         this.height = (Math.floor(Math.random() * 60)) + 10;
     }

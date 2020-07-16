@@ -2,7 +2,7 @@ class Game {
     constructor() {
         this.canvas = undefined;
         this.ctx = undefined; 
-        this.player = new Player(this, 300, 300, 25, 32);
+        this.player = new Player(this, 288, 285, 25, 32);
         this.blocks = [];
         this.food = [];
         this.backgroundImg = new Image();
@@ -16,6 +16,7 @@ class Game {
         this.victory = document.getElementById('win-music');
         this.gameover = document.getElementById('gameover-music');
         this.time = 1000;
+        this.spriteFloat = 1;
     }
 
     init() {
@@ -50,6 +51,8 @@ class Game {
             this.drawScore();
             this.drawTime();
             this.time -= 1.66; 
+            this.floatAnimation();
+
             if(this.checkWin()){
                 cancelAnimationFrame(animation);
                 this.winGame();
@@ -61,6 +64,7 @@ class Game {
                     this.victory.play();
                 }, 500);
             }
+
             if(this.checkLose()) {
                 cancelAnimationFrame(animation);
                 this.loseGame();
@@ -79,6 +83,10 @@ class Game {
         document.getElementById("win").classList.toggle("toggle");
 
         this.ctx.fillStyle = '#1d6b3b';
+        this.ctx.font = "bold italic 50px Helvetica";
+        this.ctx.fillText('HURRAY, YOU LIVE!', 57, 109);
+
+        this.ctx.fillStyle = 'white';
         this.ctx.font = "bold italic 50px Helvetica";
         this.ctx.fillText('HURRAY, YOU LIVE!', 53, 105);
 
@@ -119,15 +127,40 @@ class Game {
     }
 
     createFoods() { // not working yet
-        let newFood;
-        while(this.food.length < 5) {
-            newFood = new Food(this);
-            for (let i = 0; i < this.blocks.length; i++) {
-                if (newFood.checkOverlap(this.blocks[i]) === true) {
-                    break;
-                }    
+        while(this.food.length < 5){
+            this.food.push(new Food(this));
+        }
+
+        for(let i = 0; i < this.blocks.length; i++){
+            for (let j = 0; j < this.food.length; j++){
+                if (this.food[j].checkOverlap(this.blocks[i])){
+                    this.food.splice(j, 1, new Food(this));
+                }
             }
-            this.food.push(newFood);
+        }
+
+        for(let i = 0; i < this.blocks.length; i++){
+            for (let j = 0; j < this.food.length; j++){
+                if (this.food[j].checkOverlap(this.blocks[i])){
+                    this.food.splice(j, 1, new Food(this));
+                }
+            }
+        }
+
+        for(let i = 0; i < this.blocks.length; i++){
+            for (let j = 0; j < this.food.length; j++){
+                if (this.food[j].checkOverlap(this.blocks[i])){
+                    this.food.splice(j, 1, new Food(this));
+                }
+            }
+        }
+
+        for(let i = 0; i < this.blocks.length; i++){
+            for (let j = 0; j < this.food.length; j++){
+                if (this.food[j].checkOverlap(this.blocks[i])){
+                    this.food.splice(j, 1, new Food(this));
+                }
+            }
         }
     }
     
@@ -139,13 +172,13 @@ class Game {
 
     drawPlayer() {
         if(this.player.direction === 'R'){
-            this.player.drawComponent('images/character_sideright.png');
+            this.player.drawComponent(`images/character_sideright-${this.spriteFloat}.png`);
         } else if (this.player.direction === 'L'){
-            this.player.drawComponent('images/character_sideleft.png');
+            this.player.drawComponent(`images/character_sideleft-${this.spriteFloat}.png`);
         } else if (this.player.direction === 'U'){
-            this.player.drawComponent('images/character_back.png');
+            this.player.drawComponent(`images/character_back-${this.spriteFloat}.png`);
         } else if (this.player.direction === 'D'){
-            this.player.drawComponent('images/character_front.png');
+            this.player.drawComponent(`images/character_front-${this.spriteFloat}.png`);
         }
     }
 
@@ -157,7 +190,9 @@ class Game {
 
     drawFoods() {
         for (let i = 0; i < this.food.length; i++){
-            this.food[i].drawComponent("images/fruit1.png");
+            if (typeof this.food[i] === 'object'){
+                this.food[i].drawComponent(`images/fruit${i}-${this.spriteFloat}.png`);
+            }
         }
     }
 
@@ -168,12 +203,14 @@ class Game {
     }
 
     drawTime() {
+        let timer = this.fourDigitString(this.time.toFixed(0));
+
         this.ctx.font = "20px Helvetica";
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.fillText(`passing out in: ${this.time.toFixed(0)}`, 425, 25);
+        this.ctx.fillText(`passing out in: ${timer[0]}${timer[1]}:${timer[2]}${timer[3]}`, 405, 25);
     }
 
-    // // didn't work... fixed it using DOM-manipulation instead
+    // // didn't work... fixed it by hardcoding and .toggling instead
     // drawGameOver() {
     //     let x = this.gameOverImg;
     //     x.src = "../images/character_gameover.png";
@@ -186,7 +223,7 @@ class Game {
     foodCollision() {
         for (let i = 0; i < this.food.length; i++){
             if (this.player.checkCollision(this.food[i])) {
-                this.food.splice(i, 1);
+                this.food.splice(i, 1, 'none');
                 this.score += 1
                 this.sound.pause();
                 this.sound.currentTime = 0;
@@ -213,7 +250,7 @@ class Game {
     }
 
     checkWin() {
-        if (this.food.length === 0) {
+        if (this.score === 5) {
             return true;
         }
     }
@@ -224,15 +261,64 @@ class Game {
         }
     }
 
-    discoColour(){
-        let number = Math.floor(Math.random() * 3);
-        if(number === 0){
-            return '#1d6b3b';
-        } else if(number === 1){
-            return '#3f2c70';
-        } else if(number === 2){
-            return '#781439';
+    fourDigitString(time) {
+        switch(time.toString().length){
+            case 4:
+                return `${time}`;
+                break;
+            case 3:
+                return `0${time}`;
+                break;
+            case 2:
+                return `00${time}`;
+                break;
+            case 1:
+                return `000${time}`;
         }
+    }
+
+    floatAnimation() {
+        if(this.time <= 1000 && this.time >= 950){
+            this.spriteFloat = 0;
+        } else if(this.time < 950 && this.time >= 900){
+            this.spriteFloat = 1;
+        } else if(this.time < 900 && this.time >= 850){
+            this.spriteFloat = 0;
+        } else if(this.time < 850 && this.time >= 800){
+            this.spriteFloat = 1;
+        } else if(this.time < 800 && this.time >= 750){
+            this.spriteFloat = 0;
+        } else if(this.time < 750 && this.time >= 700){
+            this.spriteFloat = 1;
+        } else if(this.time < 700 && this.time >= 650){
+            this.spriteFloat = 0;
+        } else if(this.time < 650 && this.time >= 600){
+            this.spriteFloat = 1;
+        } else if(this.time < 600 && this.time >= 550){
+            this.spriteFloat = 0;
+        } else if(this.time < 550 && this.time >= 500){
+            this.spriteFloat = 1;
+        } else if(this.time < 500 && this.time >= 450){
+            this.spriteFloat = 0;
+        } else if(this.time < 450 && this.time >= 400){
+            this.spriteFloat = 1;
+        } else if(this.time < 400 && this.time >= 350){
+            this.spriteFloat = 0;
+        } else if(this.time < 350 && this.time >= 300){
+            this.spriteFloat = 1;
+        } else if(this.time < 300 && this.time >= 250){
+            this.spriteFloat = 0;
+        } else if(this.time < 250 && this.time >= 200){
+            this.spriteFloat = 1;
+        } else if(this.time < 200 && this.time >= 150){
+            this.spriteFloat = 0;
+        } else if(this.time < 150 && this.time >= 100){
+            this.spriteFloat = 1;
+        } else if(this.time < 100 && this.time >= 50){
+            this.spriteFloat = 0;
+        } else if(this.time < 50){
+            this.spriteFloat = 1;
+        } 
     }
 
     clear() {
