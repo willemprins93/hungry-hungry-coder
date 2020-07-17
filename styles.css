@@ -4,53 +4,73 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #e8e2b3;
+    background-image: url("/images/css-background.png");
+}
+
+button {
+    font-family: 'Courier New', Courier, monospace
+}
+
+#main-char {
+    position: absolute;
+    max-width: 10%;
+    top: 19%;
+    left: 45%;
 }
 
 #gameover {
     position: absolute;
-    max-width: 220px;
-    top: 180px;
+    max-width: 33%;
+    top: 27%;
+    left: 33%;
 }
 
 #win {
     position: absolute;
-    max-width: 200px;
-    top: 168px;
+    max-width: 33%;
+    top: 25%;
+    left: 33%
 }
 
 #start-button {
-    width: 200px;
+    width: 33%;
     padding: 10px;
     position: absolute;
-    top: 520px;
+    top: 82%;
+    left: 33%;
+    right: 33%;
     color: #1d6b3b;
     border-color: #1d6b3b
 }
 
 #play-again {
-    width: 200px;
+    width: 33%;
     padding: 10px;
     position: absolute;
-    top: 480px;
+    top: 77%;
+    left: 33%;
     color: #1d6b3b;
     border-color: #1d6b3b
 }
 
 
 #try-again {
-    width: 200px;
+    width: 33%;
     padding: 10px;
     position: absolute;
-    top: 480px;
+    top: 77%;
+    left: 33%;
+    right: 33%;
     color: #1d6b3b;
     border-color: #1d6b3b;
 }
 
 #main-menu {
-    width: 200px;
+    width: 33%;
     padding: 10px;
     position: absolute;
-    top: 540px;
+    top: 87%;
+    left: 33%;
     color: #1d6b3b;
     border-color: #1d6b3b;
 }
@@ -61,8 +81,20 @@ body {
     display: none;
 }
 
-#canvas {
-    border: 10px ridge #1d6b3b;
-    background-color: #e8e2b3;
+#game-board {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
+#canvas {
+    border: 4px solid #1d6b3b;
+    background-color: #e8e2b3;
+}

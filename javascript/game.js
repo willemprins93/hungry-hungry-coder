@@ -31,6 +31,7 @@ class Game {
 
     startGame() {
         let animation = undefined;
+        this.clear();
         this.drawBackground();
         this.drawBlocks();
         this.drawFoods();
@@ -82,22 +83,20 @@ class Game {
 
         document.getElementById("win").classList.toggle("toggle");
 
-        this.ctx.fillStyle = '#1d6b3b';
-        this.ctx.font = "bold italic 50px Helvetica";
-        this.ctx.fillText('HURRAY, YOU LIVE!', 57, 109);
+        this.ctx.fillStyle = '#BC4B51';
+        this.ctx.font = "bold italic 50px Courier";
+        this.ctx.fillText('HURRAY, YOU LIVE!', 50, 90);
 
         this.ctx.fillStyle = 'white';
-        this.ctx.font = "bold italic 50px Helvetica";
-        this.ctx.fillText('HURRAY, YOU LIVE!', 53, 105);
+        this.ctx.font = "bold italic 50px Courier";
+        this.ctx.fillText('HURRAY, YOU LIVE!', 46, 86);
 
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.font = "20px Helvetica";
-        this.ctx.fillText(`Don't forget to `, 235, 415);
-
-        this.ctx.fillText('take a break next time!', 195, 440);
+        this.ctx.font = "20px Courier";
+        this.ctx.fillText(`Don't forget to `, 190, 400);
+        this.ctx.fillText('take a break next time!', 150, 425);
 
         document.getElementById("play-again").classList.toggle("toggle");
-
         document.getElementById("main-menu").classList.toggle("toggle");
     }
 
@@ -106,14 +105,19 @@ class Game {
 
         document.getElementById("gameover").classList.toggle("toggle");
 
-        this.ctx.font = "bold italic 60px Helvetica";
-        this.ctx.fillStyle = "#1d6b3b";
-        this.ctx.fillText('GAME OVER', 115, 130);
-
-        this.ctx.font = "18px Helvetica";
+        this.ctx.font = "bold italic 60px Courier";
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 155, 410);
-        this.ctx.fillText(`before passing out...`, 220, 430);
+        this.ctx.fillText('GAME OVER', 135, 124);
+
+        this.ctx.font = "bold italic 60px Courier";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText('GAME OVER', 131, 120);
+
+
+        this.ctx.font = "18px Courier";
+        this.ctx.fillStyle = "#BC4B51";
+        this.ctx.fillText(`You only managed to eat ${this.score} snacks`, 115, 385);
+        this.ctx.fillText(`before passing out...`, 175, 405);
 
         document.getElementById("try-again").classList.toggle("toggle");
 
@@ -166,7 +170,7 @@ class Game {
     
 
     drawBackground() {
-        this.backgroundImg.src = "images/background.png";
+        this.backgroundImg.src = "images/background-dotted.png";
         this.ctx.drawImage(this.backgroundImg, 0, 0, 600, 600);
     }
 
@@ -197,17 +201,17 @@ class Game {
     }
 
     drawScore() {
-        this.ctx.font = "20px Helvetica";
+        this.ctx.font = "16px Courier";
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.fillText(`snacks found: ${this.score}`, 10, 25)
+        this.ctx.fillText(`snacks found: ${this.score}`, 10, 20)
     }
 
     drawTime() {
         let timer = this.fourDigitString(this.time.toFixed(0));
 
-        this.ctx.font = "20px Helvetica";
+        this.ctx.font = "16px Courier";
         this.ctx.fillStyle = "#BC4B51";
-        this.ctx.fillText(`passing out in: ${timer[0]}${timer[1]}:${timer[2]}${timer[3]}`, 405, 25);
+        this.ctx.fillText(`passing out in: ${timer[0]}${timer[1]}:${timer[2]}${timer[3]}`, 390, 20);
     }
 
     // // didn't work... fixed it by hardcoding and .toggling instead
@@ -324,5 +328,4 @@ class Game {
     clear() {
         this.ctx.clearRect(this.x, this.y, this.width, this.height);
     }
-
 }

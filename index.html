@@ -8,16 +8,18 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/fruit-big.png" />
 </head>
 <body>
-    <button id="start-button">Let's go!</button>
-    <button id="play-again" class="toggle">Still hungry?</button>
-    <button id="try-again" class="toggle">Try again?</button>
-    <button id="main-menu" class="toggle">Main menu</button>
-
-    <img id="gameover" class="toggle" src="images/character_gameover.png" alt="dead"/>
-    <img id ="win" class="toggle" src="images/character_win.png" alt="win"/>
-
     <div id="game-board">
         <canvas id="canvas" width="600" height="600"></canvas>
+
+        <img id="main-char" src="images/character_front-medium.png" alt="main-char"/>
+
+        <img id="gameover" class="toggle" src="images/character_gameover.png" alt="dead"/>
+        <img id ="win" class="toggle" src="images/character_win.png" alt="win"/>
+
+        <button id="start-button">Let's go!</button>
+        <button id="play-again" class="toggle">Still hungry?</button>
+        <button id="try-again" class="toggle">Try again?</button>
+        <button id="main-menu" class="toggle">Main menu</button>
     </div>
 
     <audio id="music" src="sounds/backgroundmusic.mp3">
