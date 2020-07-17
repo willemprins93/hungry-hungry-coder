@@ -1,4 +1,9 @@
 window.onload = function() {
+
+    Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
+        console.log('images finished loading');
+    });
+    
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const startButton = document.getElementById("start-button");
