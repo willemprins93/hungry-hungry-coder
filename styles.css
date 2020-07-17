@@ -4,7 +4,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #e8e2b3;
-    background-image: url("./images/css-background.png");
+    background-image: url("images/css-background.png");
 }
 
 button {
