@@ -10,25 +10,33 @@ Basic item collection game.
 
 Description:
 
-- Pick up items(food) from around the playing field to score points.
+- Pick up 5 items(food) from around the playing field before the timer runs out to win.
 - Block obstacles prevent you from walking through them.
 - Food and blocks are randomly generated each time.
-- When you pick up 5 items, you win.
-- Game over screen shows you "Well done!" and a button to try again.
+- Blocks have one of three different colours.
+- If you fail, game shows your score and you have the option to try again.
 
 Deliverables:
 
 - Splash screen with project name, instructions, and start button.
-- Game screen with map, player character, items.
-- Game over screen with game-over text and restart button.
+- Game screen with map, player character, items, blocks, timer and score.
+- Win screen with win-game text, 'play again' and 'main menu' buttons.
+- Game over screen with game over text, 'try again' and 'main menu' buttons.
+- Custom animated sprites.
 
 ## Backlog
 
-- Add a timer to beat + winScreen.
-- Score counter on screen while playing.
-- Custom sprites and background
+- Add more difficulty options.
+- Add highscore board
+- Add more levels
+- Add more ways to die
+- Create more varied animations
 
 ## Data structure
+
+### index.html
+
+### style.css
 
 ### main.js
 
@@ -40,45 +48,69 @@ Deliverables:
 
 ### food.js
 
+### component.js
+
 ## States and States Transitions
 
-### splash()
+### main.js / splashScreen()
 
-- createSplash()
-- addEventListener(startGame)
+- Canvas titlescreen
+- addEventListener(startButton)
 
-### startGame()
+### createGame()
 
-- createGame()
-- game.start()
+- new Game()
+- game.init()
+- game.startGame()
 
-### gameoverScreen()
+### loseGame()
 
-- createGameOver()
-- addEventListener(startGame)
+- Canvas gameover screen
+- addEventListener(tryAgain)
+- addEventListener(mainMenu)
+
+### winGame()
+- Canvas winscreen
+- addEventListener(playAgain)
+- addEventListener(mainMenu)
 
 ## Task
 
 - Main - splashScreen
-- Main - addEventListener
+- Main - addEventListener(startButton)
 - Main - createGame
-- Main - removeGame
-- Main - createGameOver
-- Main - addEventListener
-- Main - removeGameOver
+- Main - addEventListener(playAgain)
+- Main - addEventListener(tryAgain)
+- Main - addEventListener(mainMenu)
 
-- Game - startLoop
-- Game - checkCollisionsToBlocks
-- Game - checkCollisionsToFood
-- Game - setGameOver
-- Game - addEventListener
+- Game - init
+- Game - startGame
+- Game - winGame
+- Game - loseGame
+- Game - createBlocks
+- Game - createFoods
+- Game - drawBackground
+- Game - drawPlayer
+- Game - drawBlocks
+- Game - drawFoods
+- Game - drawScore
+- Game - drawTime
+- Game - foodCollision
+- Game - blockCollision
+- Game - checkWin
+- Game - checkLose
+- Game - fourDigitString
+- Game - floatAnimation
+- Game - clear
 
-- Player - draw
-- Player - updatePosition
+- Component - drawComponent
 
-- Block - draw
+- Player - move
+- Player - checkCollision
 
-- Food - draw
+- Block - drawBlock
+
+- Food - checkOverlap
 
 ## Links
 
@@ -89,6 +121,7 @@ Deliverables:
 ### Git
 
 [GitHub Repo](https://github.com/willemprins93/hungry-hungry-coder)
+
 [Deploy link](https://willemprins93.github.io/hungry-hungry-coder/)
 
 ### Slides

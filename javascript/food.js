@@ -16,4 +16,4 @@ class Food extends Component {
             return false;
         }
     }
-}
+} 
